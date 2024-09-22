@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>icons\rocket.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="icons\rocket.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft-Windows10-APICodePack-Core" Version="1.1.8" />
+    <PackageReference Include="Microsoft-Windows10-APICodePack-Shell" Version="1.1.8" />
+    <PackageReference Include="Microsoft-Windows10-APICodePack-ShellExtensions" Version="1.1.8" />
+  </ItemGroup>
+
+</Project>
