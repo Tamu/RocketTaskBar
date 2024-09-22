@@ -1,7 +1,7 @@
-# RocketTaskList
+# RocketTaskBar
 
 
-I wanted to have shortcuts from a folder’s content in my Windows 11 taskbar. 
+I wanted to have shortcuts from a folderâ€™s content in my Windows 11 taskbar. 
 Super easy to network and share between multiple PCs and colleagues
 
 My code is easy to update and open source !
