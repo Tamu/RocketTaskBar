@@ -40,6 +40,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Rocket";
             Text = "RocketTaskBar";
+            WindowState = FormWindowState.Minimized;
             ResumeLayout(false);
         }
 

@@ -1,5 +1,6 @@
 using System.Reflection;
 using Microsoft.WindowsAPICodePack.Taskbar;
+using MS.WindowsAPICodePack.Internal;
 
 namespace RocketTaskBar
 {
@@ -19,14 +20,35 @@ namespace RocketTaskBar
             // create a jump list
             JumpList jumpList = JumpList.CreateJumpList();
 
-            JumpListCustomCategory category = new JumpListCustomCategory("Folder 1");
-            category.AddJumpListItems(
-                new JumpListLink(cmdPath, "Tomato") { Arguments = "Tomato" },
-                new JumpListLink(cmdPath, "Prawns") { Arguments = "Prawns" },
-                new JumpListLink(cmdPath, "Shrimps") { Arguments = "Shrimps" });
+            foreach (var folder in Program.settings.RocketFolders)
+            {
+                if (folder.Path != null && Directory.Exists(folder.Path))
+                {
+                    string folderName = "";
+                    if (folder.Name == null)
+                    {
+                        DirectoryInfo dirInfo = new DirectoryInfo(folder.Path);
+                        folderName = dirInfo.Name;
+                    } else
+                    {
+                        folderName = folder.Name;
+                    }
+                    JumpListCustomCategory category = new JumpListCustomCategory(folderName);
 
-            jumpList.AddCustomCategories(category);
+                    foreach (string file in Directory.EnumerateFiles(folder.Path))
+                    {
+                        if (Path.GetExtension(file).ToLower() == ".rdp") {
+                        string Filename = Path.GetFileNameWithoutExtension(file);
+                        category.AddJumpListItems(new JumpListLink(file, Filename) { Arguments = "" });
+                        }
+                    }
 
+                    jumpList.AddCustomCategories(category);
+                }
+
+
+            }
+            
             jumpList.Refresh();
         }
 
