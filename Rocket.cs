@@ -1,16 +1,35 @@
 using System.Reflection;
+using Dark.Net;
 using Microsoft.WindowsAPICodePack.Taskbar;
-using MS.WindowsAPICodePack.Internal;
 
 namespace RocketTaskBar
 {
     public partial class Rocket : Form
     {
+
+
         public Rocket()
         {
             InitializeComponent();
+            //this.AllowTransparency = true;
+            //this.BackColor = Color.Lime;
+            //this.TransparencyKey = Color.Lime;
+            //this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            
+            //this.ControlBox = false;
+            //this.Text = String.Empty;
+            this.Opacity = 0.9;
+            this.StartPosition = FormStartPosition.Manual;
+            Screen screen = Screen.FromControl(this);
+            this.Location = new Point((screen.WorkingArea.Width - this.Width) / 2,
+                          (screen.WorkingArea.Height - this.Height) - 16);
+
+            DarkNet.Instance.SetWindowThemeForms(this, Theme.Auto);
+
             Shown += Form1_Shown;
+        
         }
+
 
         private void Form1_Shown(Object sender, EventArgs e)
         {
@@ -37,9 +56,19 @@ namespace RocketTaskBar
 
                     foreach (string file in Directory.EnumerateFiles(folder.Path))
                     {
-                        if (Path.GetExtension(file).ToLower() == ".rdp") {
-                        string Filename = Path.GetFileNameWithoutExtension(file);
-                        category.AddJumpListItems(new JumpListLink(file, Filename) { Arguments = "" });
+                        if (folder.Filter != null && folder.Filter != "")
+                        {
+                            string[] filters = folder.Filter.Split("|");
+                            if (filters.Length > 0)
+                            {
+                                foreach (string filter in filters)
+                                {
+                                    if (Path.GetExtension(file).ToLower() == filter) {
+                                        string Filename = Path.GetFileNameWithoutExtension(file);
+                                        category.AddJumpListItems(new JumpListLink(file, Filename) { Arguments = "" });
+                                    }
+                                }
+                            }
                         }
                     }
 

@@ -1,6 +1,6 @@
 using System.Reflection;
 using System.Text.Json;
-using System.Xml.Linq;
+using Dark.Net;
 
 namespace RocketTaskBar
 {
@@ -13,9 +13,11 @@ namespace RocketTaskBar
 
         public static Settings? settings;
 
+
         [STAThread]
         static void Main()
         {
+            DarkNet.Instance.SetCurrentProcessTheme(Theme.Auto);
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
